@@ -7,22 +7,64 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+library(tidyverse)
 ```
 
-## Including Plots
+##3.2.4 Exercises
+1. Run ggplot(data = mpg) what do you see?  
+```{r}
+ggplot(data = mpg)
+```
+No plot is produced.  
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+2. How many rows are in mtcars? How many columns?
+```{r}
+nrow(mtcars)
+```
+```{r}
+ncol(mtcars)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+3.What does the drv variable describe? Read the help for ?mpg to find out.  
+drv describes whether the car is front, rear, or 4-wheel drive.  
+
+4. Make a scatterplot of hwy vs cyl.  
+```{r}
+ggplot(data=mpg) + geom_point(mapping = aes(x = cyl, y = hwy))
+```
+
+
+5. What happens if you make a scatterplot of class vs drv. Why is the plot not useful?
+```{r}
+ggplot(data=mpg) + geom_point(mapping = aes(x = drv, y = class))
+```
+
+The graph basically shows that most drive types are represented in most classes.  
+
+##3.3.1 Exercises  
+1. What’s gone wrong with this code? Why are the points not blue?  
+The color assignment is within the aes(), so the code is trying to assign color based on a non-existant "blue " variable.  
+
+2. Which variables in mpg are categorical? Which variables are continuous? (Hint: type ?mpg to read the documentation for the dataset). How can you see this information when you run mpg?  
+
+Manufacturer, model, cyl, trans, drv, fl, and class are categorical. Displ, cty, and hwy are continuous. Some information is provided via the type of atomic vector - character vectors are certainly categorical, however integers may be categorical or continuous.  
+
+3. Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical vs. continuous variables?  
+
+```{r}
+ggplot(data=mpg) + geom_point(mapping = aes(x = cyl, y = hwy, color = displ))
+```  
+```{r}
+ggplot(data=mpg) + geom_point(mapping = aes(x = cyl, y = hwy, size = displ))
+```  
+```{r}
+ggplot(data=mpg) + geom_point(mapping = aes(x = cyl, y = hwy, shape = displ))
+```  
+
+4. What happens if you map the same variable to multiple aesthetics?
+```{r}
+ggplot(data=mpg) + geom_point(mapping = aes(x = cyl, y = hwy, color = displ, color = displ))
+```  
+
+5. What does the stroke aesthetic do? What shapes does it work with? (Hint: use ?geom_point)
