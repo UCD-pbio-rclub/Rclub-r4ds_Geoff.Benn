@@ -328,3 +328,17 @@ filter(mpg, cyl == 8)
 
 **4. alt+shift+k**
 This brings up keyboard shortcuts. This can also be accessed via the help menu.
+
+**graph my own data!**
+
+
+```r
+setwd("~/Box Sync/BIS2C/2C Analysis/App evaluation")
+practical <- read.delim("F16.lab.practical.txt",header = T)
+ggplot(practical, aes(x=MT.Letter,y=Practical.Live.Plants)) + 
+  geom_boxplot(aes(fill=App.completion))+
+  ggtitle("Performance on Questions Requiring Live Plant ID")+ 
+  labs(x="Midterm Letter Grade", y="Live Plant Questions Score")
+```
+
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
