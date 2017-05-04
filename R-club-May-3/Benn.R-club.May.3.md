@@ -300,7 +300,7 @@ width and height control the amount of jittering.
 ```r
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
   geom_point() +
-  geom_count()
+  geom_count(alpha=.5)
 ```
 
 ![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
@@ -405,14 +405,26 @@ This brings up keyboard shortcuts. This can also be accessed via the help menu.
 
 **graph my own data!**
 
-
 ```r
 setwd("~/Box Sync/BIS2C/2C Analysis/App evaluation")
 practical <- read.delim("F16.lab.practical.txt",header = T)
 ggplot(practical, aes(x=MT.Letter,y=Practical.Live.Plants)) + 
   geom_boxplot(aes(fill=App.completion))+
-  ggtitle("Performance on Questions Requiring Live Plant ID")+ 
+  ggtitle("Performance on Practical Questions Requiring Live Plant ID")+ 
   labs(x="Midterm Letter Grade", y="Live Plant Questions Score")
 ```
 
 ![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
+
+
+
+```r
+setwd("~/Box Sync/BIS2C/2C Analysis/App evaluation")
+practical <- read.delim("F16.lab.practical.txt",header = T)
+ggplot(practical, aes(x=MT.Letter,y=Practical.Live.Plants)) + 
+  geom_point(aes(color=App.completion), position = "jitter")+
+  ggtitle("Performance on Practical Questions Requiring Live Plant ID")+ 
+  labs(x="Midterm Letter Grade", y="Live Plant Questions Score")
+```
+
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
