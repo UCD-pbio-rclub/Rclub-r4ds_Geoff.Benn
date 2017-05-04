@@ -14,6 +14,10 @@ knitr::opts_chunk$set(error =  TRUE)
 library(tidyverse)
 ```  
 
+```{r}
+sessionInfo()
+```
+
 ##3.6.1 Exercises  
 
 **1. What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?**
@@ -98,7 +102,7 @@ ggplot(data=mpg) +
 **couldn't figure out how to duplicate the stat_summary thing with either of the associated geoms**
 ```{r}
 ggplot(data = diamonds) + 
-  geom_histogram(mapping = aes(x = cut, y = depth))
+  geom_pointrange(mapping = aes(x = cut), fun.y = median, fun.ymin = min, fun.ymax = max, fun.y = median)
 ```
 
 **2. What does geom_col() do? How is it different to geom_bar()?**
@@ -157,7 +161,7 @@ width and height control the amount of jittering.
 ```{r}
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
   geom_point() +
-  geom_count()
+  geom_count(alpha=.5)
 ```  
 
 jitter shifts points slightly to prevent overplotting, while count increases point size when there are multiple points at a particular coordinate.
@@ -220,12 +224,21 @@ filter(mpg, cyl == 8)
 This brings up keyboard shortcuts. This can also be accessed via the help menu.
 
 **graph my own data!**
-
 ```{r}
 setwd("~/Box Sync/BIS2C/2C Analysis/App evaluation")
 practical <- read.delim("F16.lab.practical.txt",header = T)
 ggplot(practical, aes(x=MT.Letter,y=Practical.Live.Plants)) + 
   geom_boxplot(aes(fill=App.completion))+
-  ggtitle("Performance on Questions Requiring Live Plant ID")+ 
+  ggtitle("Performance on Practical Questions Requiring Live Plant ID")+ 
+  labs(x="Midterm Letter Grade", y="Live Plant Questions Score")
+```
+
+
+```{r}
+setwd("~/Box Sync/BIS2C/2C Analysis/App evaluation")
+practical <- read.delim("F16.lab.practical.txt",header = T)
+ggplot(practical, aes(x=MT.Letter,y=Practical.Live.Plants)) + 
+  geom_point(aes(color=App.completion), position = "jitter")+
+  ggtitle("Performance on Practical Questions Requiring Live Plant ID")+ 
   labs(x="Midterm Letter Grade", y="Live Plant Questions Score")
 ```

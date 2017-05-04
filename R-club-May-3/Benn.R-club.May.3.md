@@ -25,6 +25,40 @@ library(tidyverse)
 ## lag():    dplyr, stats
 ```
 
+
+```r
+sessionInfo()
+```
+
+```
+## R version 3.3.2 (2016-10-31)
+## Platform: x86_64-apple-darwin13.4.0 (64-bit)
+## Running under: OS X El Capitan 10.11.6
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] dplyr_0.5.0     purrr_0.2.2     readr_1.1.0     tidyr_0.6.1    
+## [5] tibble_1.3.0    ggplot2_2.2.1   tidyverse_1.1.1
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.10     cellranger_1.1.0 plyr_1.8.4       forcats_0.2.0   
+##  [5] tools_3.3.2      digest_0.6.12    jsonlite_1.4     lubridate_1.6.0 
+##  [9] evaluate_0.10    nlme_3.1-131     gtable_0.2.0     lattice_0.20-35 
+## [13] psych_1.7.5      DBI_0.6-1        yaml_2.1.14      parallel_3.3.2  
+## [17] haven_1.0.0      xml2_1.1.1       stringr_1.2.0    httr_1.2.1      
+## [21] knitr_1.15.1     hms_0.3          rprojroot_1.2    grid_3.3.2      
+## [25] R6_2.2.0         readxl_1.0.0     foreign_0.8-68   rmarkdown_1.5   
+## [29] modelr_0.1.0     reshape2_1.4.2   magrittr_1.5     backports_1.0.5 
+## [33] scales_0.4.1     htmltools_0.3.6  rvest_0.3.2      assertthat_0.2.0
+## [37] mnormt_1.5-5     colorspace_1.3-2 stringi_1.1.5    lazyeval_0.2.0  
+## [41] munsell_0.4.3    broom_0.4.2
+```
+
 ##3.6.1 Exercises  
 
 **1. What geom would you use to draw a line chart? A boxplot? A histogram? An area chart?**
@@ -41,7 +75,11 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
   geom_smooth(se = FALSE)
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+```
+## `geom_smooth()` using method = 'loess'
+```
+
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 So I was not quite correct. The trendlines also follow the color aes, so there are 3 lines.
 
@@ -56,7 +94,11 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
   geom_smooth(se = TRUE)
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+```
+## `geom_smooth()` using method = 'loess'
+```
+
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
 Not clear on this one.
 
@@ -74,7 +116,11 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth(se = FALSE)
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+```
+## `geom_smooth()` using method = 'loess'
+```
+
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 ```r
 ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
@@ -82,12 +128,8 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth(mapping = aes(x = displ, y = hwy, group = drv), se = FALSE)
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
-
-```r
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = drv)) + 
-  geom_smooth(mapping = aes(x = displ, y = hwy, group = drv), se = FALSE)
+```
+## `geom_smooth()` using method = 'loess'
 ```
 
 ![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
@@ -95,7 +137,11 @@ ggplot(data = mpg) +
 ```r
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, color = drv)) + 
-  geom_smooth(mapping = aes(x = displ, y = hwy), se = FALSE)
+  geom_smooth(mapping = aes(x = displ, y = hwy, group = drv), se = FALSE)
+```
+
+```
+## `geom_smooth()` using method = 'loess'
 ```
 
 ![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
@@ -103,17 +149,33 @@ ggplot(data = mpg) +
 ```r
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, color = drv)) + 
-  geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv), se = FALSE)
+  geom_smooth(mapping = aes(x = displ, y = hwy), se = FALSE)
+```
+
+```
+## `geom_smooth()` using method = 'loess'
 ```
 
 ![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv), se = FALSE)
+```
+
+```
+## `geom_smooth()` using method = 'loess'
+```
+
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 ```r
 ggplot() + 
   geom_point(data = mpg, mapping = aes(x = displ, y = hwy, color = drv, stroke = 4))
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 ##3.7.1 Exercises
 **1. What is the default geom associated with stat_summary()? How could you rewrite the previous plot to use that geom function instead of the stat function?**
@@ -125,7 +187,7 @@ ggplot(data=mpg) +
   geom_histogram(mapping = aes(x=hwy),binwidth = 5)
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 **couldn't figure out how to duplicate the above with stat_summary()**
 
@@ -135,24 +197,32 @@ ggplot(data=mpg) +
 ```
 
 ```
-## Warning: Computation failed in `stat_summary()`:
-## no applicable method for 'group_by_' applied to an object of class "NULL"
+## Error: stat_summary requires the following missing aesthetics: y
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 **couldn't figure out how to duplicate the stat_summary thing with either of the associated geoms**
 
 ```r
 ggplot(data = diamonds) + 
-  geom_histogram(mapping = aes(x = cut, y = depth))
+  geom_pointrange(mapping = aes(x = cut), fun.y = median, fun.ymin = min, fun.ymax = max, fun.y = median)
 ```
 
 ```
-## Error: stat_bin() must not be used with a y aesthetic.
+## Warning: The plyr::rename operation has created duplicates for the
+## following name(s): (`fun.y`)
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+```
+## Warning: Ignoring unknown parameters: fun.y, fun.ymin, fun.ymax
+```
+
+```
+## Error: geom_pointrange requires the following missing aesthetics: y, ymin, ymax
+```
+
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
 **2. What does geom_col() do? How is it different to geom_bar()?**
 geom_col() doesn't seem to exist in my version of R.
@@ -174,7 +244,11 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_smooth()
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+```
+## `geom_smooth()` using method = 'loess'
+```
+
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 smooth() plots a trendline and produces error bars. It takes input in terms of the method - either a formula or a method.
 
 **5. In our proportion bar chart, we need to set group = 1. Why? In other words what is the problem with these two graphs?**  
@@ -185,7 +259,7 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, y = ..prop..))
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
 
 
 ```r
@@ -193,7 +267,7 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, y = ..prop.., group = 1))
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 It looks like without group, it's calculating proportions within each diamond grade.
 
@@ -206,7 +280,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_point()
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 I'm guessing it's omitting points.
 
@@ -216,7 +290,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_jitter()
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
 
 **2. What parameters to geom_jitter() control the amount of jittering?**
 width and height control the amount of jittering.
@@ -229,7 +303,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_count()
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
 
 jitter shifts points slightly to prevent overplotting, while count increases point size when there are multiple points at a particular coordinate.
 
@@ -241,7 +315,7 @@ ggplot(data = mpg, mapping = aes(x = drv, y = hwy, fill = manufacturer)) +
   geom_boxplot(position = position_dodge(1))
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
 
 ##3.9.1 Exercises
 
@@ -252,13 +326,13 @@ x <- ggplot(data = mpg) + geom_bar(mapping = aes(x = manufacturer, fill = drv))
 x + coord_flip()
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
 
 ```r
 x + coord_polar()
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-20-2.png)<!-- -->
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-21-2.png)<!-- -->
 
 **2. labs()?**
 Allows you to specify labels.
@@ -276,7 +350,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   coord_fixed()
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-21-1.png)<!-- -->
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
 
 ```r
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
@@ -284,7 +358,7 @@ ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
   geom_abline()
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-22-1.png)<!-- -->
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
 
 I can't tell the difference when coord_fixed() is removed - the scales stay the same, though the proportions are different. Not sure why this is significant.
 I'm also not clear on what abline is doing - it's clearly drawing a line, but I'm not sure what the defaults are for setting the slope and intercept.
@@ -301,7 +375,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-23-1.png)<!-- -->
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-24-1.png)<!-- -->
 
 
 ```r
@@ -341,4 +415,4 @@ ggplot(practical, aes(x=MT.Letter,y=Practical.Live.Plants)) +
   labs(x="Midterm Letter Grade", y="Live Plant Questions Score")
 ```
 
-![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-25-1.png)<!-- -->
+![](Benn.R-club.May.3_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
