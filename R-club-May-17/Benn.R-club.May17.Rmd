@@ -1,6 +1,8 @@
 ---
 title: "Benn.R-club-May-17"
-output: html_document
+output: 
+  html_document: 
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -40,11 +42,11 @@ This question is kind of vague.
 **2. Come up with another approach that will give you the same output as not_cancelled %>% count(dest) and not_cancelled %>% count(tailnum, wt = distance) (without using count()).**
 
 ```{r}
-not_canceled %>% 
+not_cancelled %>% 
   group_by(dest) %>%
   summarise(flights = n())
 
-not_canceled %>% 
+not_cancelled %>% 
   group_by(tailnum) %>%
   summarise(total = sum(distance))
 ```  
@@ -73,8 +75,12 @@ It looks like the number of cancelled flights is positively correlated with aver
 ```{r}
 flights %>%
   group_by(carrier) %>%
-  summarise(avg_delay = mean(arr_delay, na.rm = TRUE))
-```
+  summarise(avg_delay = mean(arr_delay, na.rm = TRUE)) %>%
+  arrange(desc(avg_delay))
+```  
+
+Frontier (F9) has the highest average delay.
+
 ```{r}
 flights %>%
   group_by(carrier, dest) %>%

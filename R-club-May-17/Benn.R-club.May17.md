@@ -163,30 +163,34 @@ It looks like the number of cancelled flights is positively correlated with aver
 ```r
 flights %>%
   group_by(carrier) %>%
-  summarise(avg_delay = mean(arr_delay, na.rm = TRUE))
+  summarise(avg_delay = mean(arr_delay, na.rm = TRUE)) %>%
+  arrange(desc(avg_delay))
 ```
 
 ```
 ## # A tibble: 16 × 2
 ##    carrier  avg_delay
 ##      <chr>      <dbl>
-## 1       9E  7.3796692
-## 2       AA  0.3642909
-## 3       AS -9.9308886
-## 4       B6  9.4579733
-## 5       DL  1.6443409
-## 6       EV 15.7964311
-## 7       F9 21.9207048
-## 8       FL 20.1159055
-## 9       HA -6.9152047
-## 10      MQ 10.7747334
-## 11      OO 11.9310345
-## 12      UA  3.5580111
-## 13      US  2.1295951
-## 14      VX  1.7644644
-## 15      WN  9.6491199
-## 16      YV 15.5569853
+## 1       F9 21.9207048
+## 2       FL 20.1159055
+## 3       EV 15.7964311
+## 4       YV 15.5569853
+## 5       OO 11.9310345
+## 6       MQ 10.7747334
+## 7       WN  9.6491199
+## 8       B6  9.4579733
+## 9       9E  7.3796692
+## 10      UA  3.5580111
+## 11      US  2.1295951
+## 12      VX  1.7644644
+## 13      DL  1.6443409
+## 14      AA  0.3642909
+## 15      HA -6.9152047
+## 16      AS -9.9308886
 ```
+
+Frontier (F9) has the highest average delay.
+
 
 ```r
 flights %>%
