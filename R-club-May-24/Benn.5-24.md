@@ -301,7 +301,7 @@ They seem to be the same - the boxploth command is slightly simpler.
 
 **4. One problem with boxplots is that they were developed in an era of much smaller datasets and tend to display a prohibitively large number of “outlying values”. One approach to remedy this problem is the letter value plot. Install the lvplot package, and try using geom_lv() to display the distribution of price vs cut. What do you learn? How do you interpret the plots?**
 
-This resulted in an error message when I tried to load the lvplot library.
+ggproto error
 
 **5. Compare and contrast geom_violin() with a facetted geom_histogram(), or a coloured geom_freqpoly(). What are the pros and cons of each method?**
 
