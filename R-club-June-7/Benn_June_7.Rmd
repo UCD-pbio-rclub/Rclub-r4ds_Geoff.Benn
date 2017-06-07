@@ -1,0 +1,151 @@
+---
+title: "Benn.June-7"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, error = TRUE)
+```
+
+```{r}
+library(tidyverse)
+sessionInfo()
+```
+
+##11.2.2 Exercises
+
+**1. What function would you use to read a file where fields were separated with “|”?**  
+
+I would use read_delim() as you can specify any delimiting symbol.
+
+**2. Apart from file, skip, and comment, what other arguments do read_csv() and read_tsv() have in common?**
+
+Quite a few. Some that might be of interest include "na", col_names, and trim_ws.
+
+**3. What are the most important arguments to read_fwf()?**
+
+File, col_positions, widths, start, end.
+
+**4. Sometimes strings in a CSV file contain commas. To prevent them from causing problems they need to be surrounded by a quoting character, like " or '. By convention, read_csv() assumes that the quoting character will be ", and if you want to change it you’ll need to use read_delim() instead. What arguments do you need to specify to read the following text into a data frame?**
+
+"x,y\n1,'a,b'"
+
+The question isn't really clear here - I'm going to assume that the outer "" are part of the string and the whole thing is a single value that we want to read in as part of a bigger CSV file.
+
+```{r}
+q4 <- read_delim("x,y\n1,'a,b'",delim = ",", quote = "\'")
+```  
+
+**5. Identify what is wrong with each of the following inline CSV files. What happens when you run the code?**
+
+```{r}
+read_csv("a,b\n1,2,3\n4,5,6")
+```  
+
+Generates an error because there are initially 2 columns (a and b) and then there are 3, so the 3rd column in the next two rows gets dropped.  
+
+```{r}
+read_csv("a,b,c\n1,2\n1,2,3,4")
+```
+
+Same issue, this times its 3 columns, then 2, then 4.
+
+```{r}
+read_csv("a,b\n\"1")
+```  
+
+Not totally sure what was intended here. Either the quote was not escaped properly or there's uneven column numbers.  
+
+```{r}
+read_csv("a,b\n1,2\na,b")
+```
+
+This seemed to work fine.
+
+```{r}
+read_csv("a;b\n1;3")
+```
+
+Also okay if the goal was 1 column and two rows. If the goal was to use ; as a seperator, then read_delim should have been used.
+
+##11.3.5
+
+**1. What are the most important arguments to locale()?**
+
+It seems like the date_format and time_format would be important, as would the grouping and decimal marks.
+
+**2. What happens if you try and set decimal_mark and grouping_mark to the same character? What happens to the default value of grouping_mark when you set decimal_mark to “,”? What happens to the default value of decimal_mark when you set the grouping_mark to “.”?**
+
+```{r}
+locale(decimal_mark = ".", grouping_mark = ".")
+```
+
+```{r}
+locale(decimal_mark = ",")
+```  
+
+I'm not sure how to check what happens to the grouping default.
+
+**3. I didn’t discuss the date_format and time_format options to locale(). What do they do? Construct an example that shows when they might be useful.**
+
+```{r}
+parse_time("09PM")
+locale(time_format = "%I/%p")
+parse_time("09PM")
+```  
+
+Not totally sure why this didn't work.
+
+**5. What’s the difference between read_csv() and read_csv2()?**  
+This for european style files with semi-colon seperators and commas for decimals.
+
+**6. What are the most common encodings used in Europe? What are the most common encodings used in Asia? Do some googling to find out.**
+
+It looks like may european countries use variations on ISO-8859, while in China Big5 and GB18030 are used. However it looks like UTF-8 is common across the board.
+
+**7. Generate the correct format string to parse each of the following dates and times:**
+
+```{r}
+d1 <- "January 1, 2010"
+parse_date(d1, "%B %d%. %Y")
+```
+
+```{r}
+d2 <- "2015-Mar-07"
+parse_date(d2, "%Y-%b-%d")
+```
+
+```{r}
+d3 <- "06-Jun-2017"
+parse_date(d3, "%d-%b-%Y")
+```  
+
+```{r}
+d4 <- c("August 19 (2015)", "July 1 (2015)")
+parse_date(d4, "%B %d (%Y)")
+```
+
+```{r}
+d5 <- "12/30/14" # Dec 30, 2014
+parse_date(d5,"%m/%d/%y")
+```  
+
+```{r}
+library(hms)
+t1 <- "1705"
+parse_time(t1,"%H%M")
+```
+
+```{r}
+t2 <- "11:15:10.12 PM"
+parse_time(t2, "%H:%M:%S %p")
+```
+
+**other notes**  
+
+
+readxls looks cool - could skip the making a csv or tab stage of the process.
+
+
